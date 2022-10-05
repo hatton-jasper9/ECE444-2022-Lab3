@@ -1,73 +1,97 @@
+<<<<<<< HEAD
 Jasper Hatton
 
 This repo is a clone of https://github.com/ECE444-2022Fall/Assignment\_1\_starter\_template
 
 # Assignment 1: Education Pathway
+=======
+# Education_Pathways
+>>>>>>> b27eb9c45c4749e266bafdb6cff7ff2ebc70ab9b
 
-This repository host the source code for Education Pathway project. You can view the online deployed version [here](https://assignment-1-starter-template.herokuapp.com/). We are using this repo as a starting point for assignment 1.
+This is a modified version of the previous Assignment1 template.
+
+The deploye version can be found at https://lab3-docker.herokuapp.com.
+
+## Changes
++ Removed hardcodes of backend urls.
++ Removed hardcodes of database, and replace the database with dummy static data.
 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) for frontend, and [Flask-tdd](https://github.com/mjhea0/flaskr-tdd) for backend.
+## How to run it locally
 
++ Enter the repo directory
++ Create a virtual environment if you haven't done this before. Activate it. 
+```powershell
+# Windows
+py -3 -m venv venv
+venv\Scripts\activate
 
-## 0. Before the project
-
-Make sure you have all the prerequisites installed
-* [Git](https://git-scm.com/downloads)
-* [Python](https://www.python.org/downloads/) (python-3.10.6)
-* nodejs
-
-To install nodejs, go to [nodejs download]( https://nodejs.org/en/download/). Add `npm` to `PATH` as global variable.
- 
-## 1. Clone the repository to your local machine
-```sh
-$ git clone https://github.com/ECE444-2022Fall/Assignment_1_starter_template.git
+# For Mac and Linux, please check the link: https://flask.palletsprojects.com/en/2.2.x/installation/
 ```
-## 2. To run the app in development
-
-First, go to the `frontend` directory 
-```sh
-$ cd .\Education_Pathways\frontend\
++ Install dependencies (if you haven't done this before).
+```powershell
+pip install -r requirements.txt
 ```
-
-to install the nodejs modules needed, run
-```sh
-$ npm install
++ Enter the `Education_Pathways/` directory, run the backend
+```powershell
+flask --app index --debug run
 ```
-then to start the app in development mode
-```sh
-$ npm start
++ Enter the `Education_Pathways/frontend/` directory
++ Make sure the `baseURL` is set as `localhost:5000`
+```javascript
+# Education_Pathways/frontend/src/api.js
+export default axios.create({
+   baseURL: "http://localhost:5000/"
+});
 ```
-## 3. To build the app for production to the `build` folder. Under the same `frontend` directory, run
-```sh
-$ npm run build
-```
-## 4. Deploy the project
-   
-We use Heroku to deploy the project online. To do this, first [sign up](https://signup.heroku.com/) for a Heroku account,  and then install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli). The following steps are the complete guide for deploying to Heroku. But for deploying this project, some steps are optional (marked as `optional`), as the required files are already provided in the repo. 
-
-4.1 If you are currently under the `frontend` directory, go back to the root directory
-```sh
-$ cd ..\..
-```
-
-4.2 Next, install a production-grade WSGI web server called [Gunicorn](http://gunicorn.org/):
-
-```sh
-$ pip install gunicorn==20.0.4
++ Make sure the proxy link in package.json is set as "http://localhost:5000/"
+```json
+// Part of Education_Pathways\frontend\package.json
+"private": true,
+"proxy": "http://localhost:5000/",
 ```
 
-4.3 (`optional`) Create a [Procfile](https://devcenter.heroku.com/articles/procfile) in the project root:
++ Build and run the frontend:
+```powershell
+npm run build
+npm start
+```
++ Then you will see the application at `localhost:3000`
 
-```sh
-$ touch Procfile
+
+## Build and run with Docker
+
+For detailed instructions on Docker, please refer to the documents for Lab3 on Quercus.
+
++ Change the proxy link in package. Remember to change it back to "http://localhost:5000/"
+```json
+// Part of Education_Pathways/frontend/package.json
+"private": true,
+"proxy": "http://host.docker.internal:5000/",
 ```
 
-4.4 (`optional`) And add the following code:
-
-```sh
-web: gunicorn --chdir Education_Pathways index:app
+```powershell
+# Under the root directory
+docker compose up --build
 ```
+
+## How to deploy (not required for lab3)
+
+Please make sure everything works well before you run it with docker.
+
++ Make sure the baseURL is set as [URL to your deployed project]
+```javascript
+// Education_Pathways/frontend/src/api.js
+export default axios.create({
+   baseURL: "[URL to your deployed project]" -- baseURL for deployment
+});
+```
++ Re-build the frontend to update the baseURL
+```powershell
+# Under the frontend/ directory
+npm run build
+```
+<<<<<<< HEAD
 
 4.5 (`optional`) Create a *requirements.txt* file to specify the external dependencies that need to be installed for the app to work:
 
@@ -141,3 +165,9 @@ $ git push heroku main
 $ heroku open
 ```
 or go to your [Heroku account](https://dashboard.heroku.com/apps) and check your the url of your deployed app. (`https://myapp-unique-name.herokuapp.com/`)
+=======
++ Deploy your changes to heroku
+```powershell
+git push heroku main
+```
+>>>>>>> b27eb9c45c4749e266bafdb6cff7ff2ebc70ab9b
